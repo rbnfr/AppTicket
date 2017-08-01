@@ -27,7 +27,7 @@ namespace ConsoleApp3
             Console.WriteLine("Almacenando " + importe + "-> Importe total=" +ImporteTotal);
             if (ImporteTotal > 200)
             {
-                Console.WriteLine("Ha superado 200, se llama al oyente");
+                Console.WriteLine("Ha superado 200, se llama al oyente si esta suscrito");
                 ImporteTotal = 0;
                 OnTotal(id, importe);
             }
