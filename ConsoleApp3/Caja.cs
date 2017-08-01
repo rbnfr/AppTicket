@@ -11,7 +11,6 @@ namespace ConsoleApp3
         public int Id { get; set; }
         public decimal ImporteTotal { get; set; }
         public List<Ticket> tickets { get; private set; }
-
         //Delegate: puntero a funcion que determina la forma de la funcion, es decir, parametros y el tipo del return
         public delegate void TotalEventHandler(object o, TotalEventArgs e);
         //Evento que esta basado en el delegate, es decir, que contendra la forma especificada en el delegate

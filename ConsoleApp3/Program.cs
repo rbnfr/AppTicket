@@ -21,7 +21,7 @@ namespace ConsoleApp3
             importe = 201;
             caja.addTicket(id, importe);
 
-            Console.WriteLine("Caso de añadir 50 cuando ya habia superado 200(no debe avisar porque se pone a 0)");
+            Console.WriteLine("Caso de añadir 50 cuando y ya habia superado 200(no debe avisar porque se pone a 0)");
             importe = 50;
             caja.addTicket(id, importe);
 
@@ -31,7 +31,6 @@ namespace ConsoleApp3
             caja.addTicket(id, importe);
 
             Console.ReadLine();
-
         }
 
         private static void Caja_Total(object o, Caja.TotalEventArgs e)
