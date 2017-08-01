@@ -9,6 +9,7 @@ namespace ConsoleApp3
     class Caja
     {
         public int Id { get; set; }
+        public decimal ImporteTotal { get; set; }
         public List<Ticket> tickets { get; private set; }
 
         //Delegate: puntero a funcion que determina la forma de la funcion, es decir, parametros y el tipo del return
@@ -20,11 +21,20 @@ namespace ConsoleApp3
             this.tickets = new List<Ticket>();
         }
 
-        public void cobrar(int id,decimal importe)
+        public void addTicket(int id,decimal importe)
         {
-            Console.WriteLine("Cobrando");
-            OnTotal(id,importe);
+            var ticket = new Ticket() { Id = id, Total = importe };
+            ImporteTotal += importe;
+            Console.WriteLine("Almacenando " + importe + "-> Importe total=" +ImporteTotal);
+            if (ImporteTotal > 200)
+            {
+                Console.WriteLine("Ha superado 200, se llama al oyente");
+                ImporteTotal = 0;
+                OnTotal(id, importe);
+            }
+
         }
+
         public virtual void OnTotal(int id, decimal importe)
         {
             /*Hay que ver "Total" como una lista de los suscriptores. Por tanto, si no esta vacia

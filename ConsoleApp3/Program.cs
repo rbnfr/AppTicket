@@ -14,15 +14,25 @@ namespace ConsoleApp3
             caja.Total += Caja_Total;
             // caja.Total -= Caja_Total;
             int id = 2;
+            Console.WriteLine("Caso de ticket con 20 euros(no debe avisar a nadie)");
             decimal importe = 20;
-            caja.cobrar(id,importe);
+            caja.addTicket(id,importe);
+
+            Console.WriteLine("Caso de ticket con 201 euros(debe avisar)");
+            importe = 201;
+            caja.addTicket(id, importe);
+
+            Console.WriteLine("Caso de añadir 50 cuando ya habia superado 200(no debe avisar porque se pone a 0)");
+            importe = 50;
+            caja.addTicket(id, importe);
+
             Console.ReadLine();
 
         }
 
         private static void Caja_Total(object o, Caja.TotalEventArgs e)
         {
-            Console.WriteLine("Oyente lo ha oido");
+            Console.WriteLine("Soy el oyente y lo he oido");
         }
     }
 }
