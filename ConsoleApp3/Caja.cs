@@ -23,6 +23,7 @@ namespace ConsoleApp3
         public void addTicket(int id,decimal importe)
         {
             var ticket = new Ticket() { Id = id, Total = importe };
+            tickets.Add(ticket);
             ImporteTotal += importe;
             Console.WriteLine("Almacenando " + importe + "-> Importe total=" +ImporteTotal);
             if (ImporteTotal > 200)
