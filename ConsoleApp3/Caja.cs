@@ -15,27 +15,41 @@ namespace ConsoleApp3
         public delegate void TotalEventHandler(object o, TotalEventArgs e);
         //Evento que esta basado en el delegate, es decir, que contendra la forma especificada en el delegate
         public event TotalEventHandler Total;
+
         public Caja()
         {
             this.tickets = new List<Ticket>();
         }
 
-        public void addTicket(int id,decimal importe)
+        private bool CajaEnRiesgo(Ticket ticket)
         {
-            var ticket = new Ticket() { Id = id, Total = importe };
-            tickets.Add(ticket);
-            ImporteTotal += importe;
-            Console.WriteLine("Almacenando " + importe + "-> Importe total=" +ImporteTotal);
             if (ImporteTotal > 200)
             {
                 Console.WriteLine("Ha superado 200, se llama al oyente si esta suscrito");
                 ImporteTotal = 0;
-                OnTotal(id, importe);
+                return true;
             }
-
+            return false;
         }
 
-        public virtual void OnTotal(int id, decimal importe)
+        public void addTicket(Ticket ticket)
+        {
+            if (null == ticket)
+            {
+                throw new Exception("Ticket nulo");
+            }
+            Console.WriteLine("Almacenando " + ticket.Total + "-> Importe total=" + ImporteTotal);
+            tickets.Add(ticket);
+            ImporteTotal += ticket.Total;
+            if (CajaEnRiesgo(ticket)){
+                OnTotal(new TotalEventArgs(ticket.Id,ticket.Total));
+            }          
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        public virtual void OnTotal(TotalEventArgs e)
         {
             /*Hay que ver "Total" como una lista de los suscriptores. Por tanto, si no esta vacia
             notificamos a cada uno de la lista lanzando el evento. Le pasamos al suscriptor la Caja, por eso se pone "this", que seria
@@ -43,7 +57,7 @@ namespace ConsoleApp3
             var handler = Total;
             if (null != handler)
             {
-                handler(this, new TotalEventArgs(id,importe));
+                handler(this, e);
             }
         }
 
@@ -56,7 +70,6 @@ namespace ConsoleApp3
                 Id = id;
                 Total = total;
             }
-
         }
     }
 }
